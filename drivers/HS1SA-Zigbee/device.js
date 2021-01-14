@@ -44,8 +44,8 @@ class HS1SAZIGBEE extends ZigBeeDevice {
 					endpointId: 1,
 					cluster: CLUSTER.IAS_ZONE,
 					attributeName: 'zoneStatus',
-					minInterval: 65535,
-					maxInterval: 0,
+					minInterval: 0,
+					maxInterval: 600,
 					minChange: 1,
 				}
 			]);
