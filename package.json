@@ -4,7 +4,10 @@
   "description": "Adds support for Heiman Smoke Sensor",
   "main": "app.js",
   "dependencies": {
-    "homey-meshdriver": "^1.3.23"
+    "homey-meshdriver": "^1.3.24",
+    "homey-zigbeedriver": "^1.6.2",
+    "homey-zwavedriver": "^2.0.3",
+    "zigbee-clusters": "^1.4.0"
   },
   "devDependencies": {},
   "scripts": {

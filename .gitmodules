@@ -4,3 +4,9 @@
 [submodule "node_modules/tinycolor2"]
 	path = node_modules/tinycolor2
 	url = https://github.com/bgrins/TinyColor.git
+[submodule "node_modules/zigbee-clusters"]
+	path = node_modules/zigbee-clusters
+	url = https://github.com/athombv/node-zigbee-clusters.git
+[submodule "node_modules/homey-zigbeedriver"]
+	path = node_modules/homey-zigbeedriver
+	url = https://github.com/athombv/node-homey-zigbeedriver.git

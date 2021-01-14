@@ -1,7 +1,7 @@
 {
   "id": "com.heiman",
-  "version": "1.0.7",
-  "compatibility": ">=1.5.0",
+  "version": "2.0.0",
+  "compatibility": ">=5.0.0",
   "author": {
     "name": "Espen Ljosland",
     "email": "espen@ljosland.com"
@@ -13,12 +13,16 @@
         "email": "dTNL.Homey@gmail.com"
       },
       {
+        "name": "Pål Raymond Johansen",
+        "email": "prj_84@hotmail.com"
+      },
+      {
         "name": "Espen Ljosland",
         "email": "espen@ljosland.com"
       }
     ]
   },
-  "sdk": 2,
+  "sdk": 3,
   "brandColor": "#f99c00",
   "name": {
     "en": "Heiman"
@@ -249,6 +253,59 @@
         "large": "/drivers/HS1SA-Z/assets/images/large.png",
         "small": "/drivers/HS1SA-Z/assets/images/small.png"
       }
+    },
+    {
+      "name": {
+        "en": "Smart Smoke Sensor - Zigbee",
+        "nl": "Rookmelder - Zigbee",
+        "de": "Smart Rauchmelder - Zigbee",
+        "no": "Smart Røykvarsler - Zigbee"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_smoke",
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "CR123A"
+        ]
+      },
+      "zigbee": {
+        "manufacturerName": "HEIMAN",
+        "productId": "SmokeSensor-EM",
+        "learnmode": {
+          "instruction": {
+            "en": "Press and hold the network button (pin hole) for 3 seconds to enter inclusion mode. LED will flash green.",
+            "no": "Press og hold nettverksknappen (hull på siden) i 3 sekunder for å aktivere inkluderngsmodus. Lysdioden blinker raskt."
+          }
+        },
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              1,
+              3,
+              25,
+              1280,
+              1282
+            ],
+            "bindings": [
+              1,
+              3,
+              25,
+              1280,
+              1282
+            ]
+          }
+        }
+      },
+      "images": {
+        "large": "/drivers/HS1SA-Zigbee/assets/images/large.png",
+        "small": "/drivers/HS1SA-Zigbee/assets/images/small.png"
+      },
+      "id": "HS1SA-Zigbee"
     },
     {
       "id": "HS2SK-Z",
