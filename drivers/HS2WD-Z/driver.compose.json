@@ -29,6 +29,9 @@
     "onoff",
 		"measure_battery"
   ],
+	"energy": {
+		"batteries": [ "INTERNAL"]
+	},
 	"images": {
 		"large": "{{driverAssetsPath}}/images/large.png",
 		"small": "{{driverAssetsPath}}/images/small.png"

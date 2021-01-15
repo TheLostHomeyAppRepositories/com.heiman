@@ -10,6 +10,22 @@ class HS1SAZIGBEE extends ZigBeeDevice {
 		this.printNode();
 		debug(true);
 
+		if (this.isFirstInit()){
+
+			//Trigger IASZONE Inclusion
+			await zclNode.endpoints[1].clusters.iasZone.writeAttributes({iasCIEAddress: '00:00:00:00:00:00:00:00'});
+			//Send IASZONE CIA address
+			await zclNode.endpoints[1].clusters.iasZone.writeAttributes({iasCIEAddress: '00:12:4b:00:18:dd:63:58'});
+			await zclNode.endpoints[1].clusters.iasZone.readAttributes('zoneId');
+
+/*			//Read IASZONE attributes - zoneId to confirm enrollment
+ 			this.log("STORED zondeID: ", await zclNode.endpoints[1].clusters.iasZone.readAttributes('zoneId'));
+			this.log("STORED IASZONE CIE ADDRESS: ", await zclNode.endpoints[1].clusters.iasZone.readAttributes('iasCIEAddress'));
+			this.log("STORED zoneState: ", await zclNode.endpoints[1].clusters.iasZone.readAttributes('zoneState'));
+*/
+		};
+
+
     // Register measure_battery capability and configure attribute reporting
     this.batteryThreshold = 20;
     if (this.hasCapability('alarm_battery')) {
@@ -37,33 +53,26 @@ class HS1SAZIGBEE extends ZigBeeDevice {
           });
         };
 
-
-		if (this.isFirstInit()){
-			await this.configureAttributeReporting([
-				{
-					endpointId: 1,
-					cluster: CLUSTER.IAS_ZONE,
-					attributeName: 'zoneStatus',
-					minInterval: 0,
-					maxInterval: 600,
-					minChange: 1,
-				}
-			]);
+		//alarm_smoke
+		// add alarm_smoke capabilities if needed
+		if (!this.hasCapability('alarm_smoke')) {
+			this.addCapability('alarm_smoke');
 		}
+		zclNode.endpoints[1].clusters[CLUSTER.IAS_ZONE.NAME].onZoneStatusChangeNotification = payload => {
+				this.onIASZoneStatusChangeNoficiation(payload);
+			};
 
-		// alarm_smoke
-		zclNode.endpoints[1].clusters[CLUSTER.IAS_ZONE.NAME]
-		.on('attr.zoneStatus', this.onZoneStatusAttributeReport.bind(this));
 
 	}
 
-	onZoneStatusAttributeReport(status) {
-    this.log("Smoke status: ", status);
-		this.log("Smoke status: ", status.alarm1);
-    this.log("Smoke status: ", status.alarm2);
-		this.setCapabilityValue('alarm_smoke', status.alarm1);
-    //this.setCapabilityValue('alarm_smoke', status.alarm2);
+	onIASZoneStatusChangeNoficiation({
+		zoneStatus, extendedStatus, zoneId, delay,
+	}) {
+		this.log('IASZoneStatusChangeNotification received:', zoneStatus, extendedStatus, zoneId, delay);
+		this.setCapabilityValue('alarm_smoke', zoneStatus.alarm1);
+		this.setCapabilityValue('alarm_battery', zoneStatus.battery);
 	}
+
 
 	onDeleted(){
 		this.log("Smart Smoke Sensor removed")

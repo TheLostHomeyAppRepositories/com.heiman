@@ -3,7 +3,7 @@
     "en": "Smart Wireless Siren - Zigbee",
     "no": "Smart Trådløs Sirene - Zigbee"
   },
-  "class": "sensor",
+  "class": "other",
   "capabilities": [
     "onoff",
 		"measure_battery",
